@@ -36,6 +36,16 @@ app.get("/", (req, res) => {
 app.get("/comments", (req, res) => {
   res.render("comments/index", { mockComments });
 });
+app.get("/comments/new", (req, res) => {
+  res.render("comments/new");
+});
+
+// Post methods
+app.post("/comments", (req, res) => {
+  const { username, comment } = req.body;
+  mockComments.push({ username, comment });
+  res.send("Comment made!");
+});
 
 app.listen(3000, () => {
   console.log("Server started on Port 3000.");
