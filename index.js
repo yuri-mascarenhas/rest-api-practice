@@ -5,6 +5,22 @@ import * as path from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Mocks
+const mockComments = [
+  {
+    username: "John",
+    comment: "comment J.",
+  },
+  {
+    username: "Elizabeth",
+    comment: "comment E.",
+  },
+  {
+    username: "Dog",
+    comment: "woof.",
+  },
+];
+
 // Create express app
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -17,14 +33,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/getpost.html"));
 });
 
-app.get("/bar", (req, res) => {
-  res.send("Got in bar");
-});
-
-// POST methods
-app.post("/bar", (req, res) => {
-  console.log(req.body);
-  res.send("Posted in bar");
+app.get("/comments", (req, res) => {
+  res.render("comments/index", { mockComments });
 });
 
 app.listen(3000, () => {
