@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1>Comments</h1>
+    <a href="/comments/new"><button>New Comment</button></a>
     <ul>
       <% for(let c of mockComments) {%>
       <li><b><%=c.username%>: </b><%=c.comment%></li>
