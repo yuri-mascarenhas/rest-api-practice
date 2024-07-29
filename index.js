@@ -1,6 +1,7 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import * as path from "path";
+import { v4 as uuid } from "uuid";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -8,17 +9,17 @@ const __dirname = path.dirname(__filename);
 // Mocks
 const mockComments = [
   {
-    id: 1,
+    id: uuid(),
     username: "John",
     comment: "comment J.",
   },
   {
-    id: 2,
+    id: uuid(),
     username: "Elizabeth",
     comment: "comment E.",
   },
   {
-    id: 3,
+    id: uuid(),
     username: "Dog",
     comment: "woof.",
   },
@@ -44,14 +45,14 @@ app.get("/comments/new", (req, res) => {
 });
 app.get("/comments/:id", (req, res) => {
   const { id } = req.params;
-  const comment = mockComments.find((c) => c.id === parseInt(id));
+  const comment = mockComments.find((c) => c.id === id);
   res.render("comments/show", { comment });
 });
 
 // Post methods
 app.post("/comments", (req, res) => {
   const { username, comment } = req.body;
-  mockComments.push({ username, comment });
+  mockComments.push({ id: uuid(), username, comment });
   res.redirect("/comments");
 });
 
