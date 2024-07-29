@@ -8,14 +8,17 @@ const __dirname = path.dirname(__filename);
 // Mocks
 const mockComments = [
   {
+    id: 1,
     username: "John",
     comment: "comment J.",
   },
   {
+    id: 2,
     username: "Elizabeth",
     comment: "comment E.",
   },
   {
+    id: 3,
     username: "Dog",
     comment: "woof.",
   },
@@ -38,6 +41,11 @@ app.get("/comments", (req, res) => {
 });
 app.get("/comments/new", (req, res) => {
   res.render("comments/new");
+});
+app.get("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  const comment = mockComments.find((c) => c.id === parseInt(id));
+  res.render("comments/show", { comment });
 });
 
 // Post methods

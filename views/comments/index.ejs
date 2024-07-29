@@ -10,7 +10,10 @@
     <a href="/comments/new"><button>New Comment</button></a>
     <ul>
       <% for(let c of mockComments) {%>
-      <li><b><%=c.username%>: </b><%=c.comment%></li>
+      <li>
+        <b><%=c.username%>: </b><%=c.comment%>
+        <a href="/comments/<%=c.id%>">(details)</a>
+      </li>
       <%}%>
     </ul>
   </body>
