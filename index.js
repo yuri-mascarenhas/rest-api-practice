@@ -44,7 +44,7 @@ app.get("/comments/new", (req, res) => {
 app.post("/comments", (req, res) => {
   const { username, comment } = req.body;
   mockComments.push({ username, comment });
-  res.send("Comment made!");
+  res.redirect("/comments");
 });
 
 app.listen(3000, () => {
