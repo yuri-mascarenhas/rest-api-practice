@@ -56,6 +56,15 @@ app.post("/comments", (req, res) => {
   res.redirect("/comments");
 });
 
+// Patch methods
+app.patch("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  const newComment = req.body.comment;
+  const dbComment = mockComments.find((c) => c.id == id);
+  dbComment.comment = newComment;
+  res.redirect("/comments");
+});
+
 app.listen(3000, () => {
   console.log("Server started on Port 3000.");
 });
