@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Mocks
-const mockComments = [
+let mockComments = [
   {
     id: uuid(),
     username: "John",
@@ -50,12 +50,6 @@ app.get("/comments/:id", (req, res) => {
   const comment = mockComments.find((c) => c.id === id);
   res.render("comments/show", { comment });
 });
-app.get("/comments/:id/edit", (req, res) => {
-  const { id } = req.params;
-  const comment = mockComments.find((c) => c.id === id);
-  console.log(comment);
-  res.render("comments/edit", { comment });
-});
 
 // Post methods
 app.post("/comments", (req, res) => {
@@ -72,7 +66,20 @@ app.patch("/comments/:id", (req, res) => {
   dbComment.comment = newComment;
   res.redirect("/comments");
 });
+app.get("/comments/:id/edit", (req, res) => {
+  const { id } = req.params;
+  const comment = mockComments.find((c) => c.id === id);
+  res.render("comments/edit", { comment });
+});
 
+// Delete methods
+app.delete("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  mockComments = mockComments.filter((c) => c.id !== id);
+  res.redirect("/comments");
+});
+
+// Main app listner
 app.listen(3000, () => {
   console.log("Server started on Port 3000.");
 });
